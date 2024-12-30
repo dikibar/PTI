@@ -58,7 +58,10 @@ class JobController extends Controller
                     });
                 });
             }
-    
+            
+            // job count
+            $jobCount = $jobs->count();
+
             $uniqueLogos = $jobs->unique(function ($job) {
                 return $job['companyLogo'];  
             });
@@ -74,7 +77,8 @@ class JobController extends Controller
                 'jobtitle' => $jobtitle,
                 'jobType' => $jobType,
                 'jobIndustry' => $jobIndustry,
-                'jobLevel' => $jobLevel
+                'jobLevel' => $jobLevel,
+                'jobCount' => $jobCount
             ]);
         }
     
@@ -118,10 +122,10 @@ class JobController extends Controller
             $jobs = collect($allJobs);
     
             // Get unique data (bebas)
-            $jobIndustries = $jobs->pluck('jobLevel')->flatten()->unique();
+            // $jobIndustries = $jobs->pluck('jobLevel')->flatten()->unique();
     
             // Dump and die to show data
-            dd($jobIndustries);  // This will output the job industries array in the browser
+            dd($jobs);  // This will output the job industries array in the browser
         }
     
         // Return empty if the API call fails

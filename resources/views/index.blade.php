@@ -27,7 +27,10 @@
                 <p class="max-w-xl mx-auto text-lg text-blue-100 lg:mx-0 opacity-90">
                     Unlock endless possibilities with our cutting-edge job discovery platform. Connect with global opportunities tailored just for you.
                 </p>
-                
+                <div class="inline-block px-8 py-6">
+                    <h2 class="text-6xl font-extrabold text-white">{{ $jobCount }}</h2>
+                    <p class="mt-2 text-xl font-medium text-white opacity-80">Jobs Available</p>
+                </div>
                 <div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
                     <a href="#filter" class="flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-blue-600 transition duration-300 bg-white rounded-lg shadow-lg hover:bg-gray-100 hover:shadow-xl group">
                         Start Searching
@@ -45,6 +48,8 @@
                         </svg>
                     </a>
                 </div>
+          
+                
             </div>
 
             <!-- Right Section -->
@@ -92,7 +97,7 @@
 </section>
 
 @if(!$jobtitle && !$jobType && !$jobIndustry && !$jobLevel)
-<div class="container px-4 py-8 mx-auto  bg-white" id="company">
+<div class="container px-4 py-8 mx-auto bg-white" id="company">
     <div class="mb-8 text-center">
         <h2 class="text-2xl font-bold text-gray-800">Company Partner</h2>
         <p class="text-lg text-gray-600">Explore top companies offering remote job opportunities</p>
@@ -131,18 +136,18 @@
         
         <!-- Job Title Search -->
         <div class="relative flex items-center w-full sm:w-auto">
-            <svg class="absolute w-5 h-5  text-gray-400 left-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="absolute w-5 h-5 text-gray-400 left-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
             <input type="text" name="jobtitle" placeholder="Search job title..." value="{{ $jobtitle ?? '' }}"
-                class="w-full py-2 pl-10 pr-4 text-sm bg-slate-50 text-gray-700 transition duration-200 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
+                class="w-full py-2 pl-10 pr-4 text-sm text-gray-700 transition duration-200 border border-gray-300 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white" />
         </div>
 
         <!-- Job Type Filter -->
         <div class="relative flex items-center w-full sm:w-auto">
             <select name="job_type" 
-                class="w-full py-2 pl-4 pr-10 text-sm text-gray-700 transition duration-200 bg-slate-50 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
+                class="w-full py-2 pl-4 pr-10 text-sm text-gray-700 transition duration-200 border border-gray-300 rounded-lg appearance-none bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
                 <option value="">Job Type</option>
                 <option value="full-time" {{ strtolower($jobType) == 'full-time' ? 'selected' : '' }}>Full-time</option>
                 <option value="part-time" {{ strtolower($jobType) == 'part-time' ? 'selected' : '' }}>Part-time</option>
@@ -157,7 +162,7 @@
         <!-- Job Industry Filter -->
         <div class="relative flex items-center w-full sm:w-auto">
             <select name="job_industry" 
-                class="w-full py-2 pl-4 pr-10 text-sm text-gray-700 transition duration-200 bg-slate-50 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
+                class="w-full py-2 pl-4 pr-10 text-sm text-gray-700 transition duration-200 border border-gray-300 rounded-lg appearance-none bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
                 <option value="">Industry</option>
                 
                 <!-- Technology Group -->
@@ -202,7 +207,7 @@
         <!-- Job Level Filter -->
         <div class="relative flex items-center w-full sm:w-auto">
             <select name="job_level" 
-                class="w-full py-2 pl-4 pr-10 text-sm text-gray-700 transition duration-200 bg-slate-50 border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
+                class="w-full py-2 pl-4 pr-10 text-sm text-gray-700 transition duration-200 border border-gray-300 rounded-lg appearance-none bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white">
                 <option value="">Level</option>
                 <option value="any" {{ strtolower($jobLevel) == 'any' ? 'selected' : '' }}>Any</option>
                 <option value="senior" {{ strtolower($jobLevel) == 'senior' ? 'selected' : '' }}>Senior</option>
@@ -225,31 +230,31 @@
 </div>
 
 {{-- Job List --}}
-<div class="container py-8 mx-auto px-8 bg-white">
+<div class="container px-8 py-8 mx-auto bg-white">
     @if(count($jobs) > 0)
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($jobs as $job)
             <!-- Job List Item -->
-            <div class="flex flex-col px-8 py-8 gap-1 transition-all duration-300 ease-in-out bg-white rounded-lg drop-shadow ">
-                <div class="flex items-center space-x-4 h-20 -mt-4">
+            <div class="flex flex-col gap-1 px-8 py-8 transition-all duration-300 ease-in-out bg-white rounded-lg drop-shadow ">
+                <div class="flex items-center h-20 -mt-4 space-x-4">
                     <img src="{{ $job['companyLogo'] }}" alt="{{ $job['companyName'] }}" class="w-12 h-12 rounded-full shadow-md">
                     <div>
                         <h4 class="text-lg font-semibold text-gray-600">{{ $job['jobTitle'] }}</h4>
                         <p class="text-sm text-gray-500">{{ $job['companyName'] }}</p>
                     </div>
                 </div>
-                <div class="mt-2 text-sm  text-gray-400 ">
+                <div class="mt-2 text-sm text-gray-400 ">
                     <div class="flex gap-2">
-                        <p class="bg-violet-50 rounded-lg text-violet-500 px-3 py-1  overflow-hidden text-ellipsis whitespace-nowrap">{{ $job['jobGeo'] }}</p>
-                        <p class="bg-green-50 rounded-lg text-green-500 px-3 py-1  overflow-hidden text-ellipsis whitespace-nowrap">{{ $job['jobIndustry'][0] }}</p>
-                        <p class="bg-orange-50 rounded-lg text-orange-500 px-3 py-1  overflow-hidden text-ellipsis whitespace-nowrap">{{ $job['jobType'][0] }}</p>       
+                        <p class="px-3 py-1 overflow-hidden rounded-lg bg-violet-50 text-violet-500 text-ellipsis whitespace-nowrap">{{ $job['jobGeo'] }}</p>
+                        <p class="px-3 py-1 overflow-hidden text-green-500 rounded-lg bg-green-50 text-ellipsis whitespace-nowrap">{{ $job['jobIndustry'][0] }}</p>
+                        <p class="px-3 py-1 overflow-hidden text-orange-500 rounded-lg bg-orange-50 text-ellipsis whitespace-nowrap">{{ $job['jobType'][0] }}</p>       
                     </div>                    
                     <p>Posted: {{ \Carbon\Carbon::parse($job['pubDate'])->diffForHumans() }}</p>
                 </div>
                 <div class="mt-4">
                     @auth
                         <a href="{{ url('/job/'.$job['id']) }}" 
-                        class="w-full px-4 py-2 text-center text-blue-600 font-semibold transition duration-300 border-2 border-blue-500 rounded-lg hover:bg-blue-500 hover:text-white">
+                        class="w-full px-4 py-2 font-semibold text-center text-blue-600 transition duration-300 border-2 border-blue-500 rounded-lg hover:bg-blue-500 hover:text-white">
                         View Details
                         </a>
                     @else
