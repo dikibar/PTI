@@ -12,10 +12,11 @@ Route::get('/', [JobController::class, 'index'])->name('index');
 
 // Rute untuk Chat 
 Route::post('/chat', [ChatController::class, 'sendMessage']);
+Route::get('/cekchat', [ChatController::class, 'cekdata']);
 
 // Rute untuk cek data yang mau di ambil
 Route::get('/jobtype', [JobController::class, 'jobtype']);
-Route::get('/jobindustry', [JobController::class, 'jobindustry']);
+Route::get('/cek', [JobController::class, 'cekdata']);
 Route::get('/logo', [JobController::class, 'logo']);
 
 // Rute Detail Pekerjaan (Hanya untuk Pengguna yang Login)
@@ -28,4 +29,5 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Route Untuk Profile User
-Route::get('/profile', [ProfileController::class, 'userProfile'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'userProfile'])->middleware('auth')->name('profile');
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('update');

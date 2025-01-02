@@ -13,7 +13,7 @@ class ChatController extends Controller
         $apiKey = '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';
 
         // Tambahkan sistem prompt untuk membuat respons lebih ringkas dan terarah
-        $systemPrompt = "Berikan jawaban yang singkat, padat, dan informatif. Gunakan bahasa percakapan yang ramah dan mudah dipahami. Batasi jawaban maksimal 3-4 kalimat.";
+        $systemPrompt = "Kamu adalah asisten chat websute jobfinder, Berikan jawaban yang singkat, padat, dan informatif. Gunakan bahasa percakapan yang ramah dan mudah dipahami. Batasi jawaban maksimal 3-4 kalimat.";
 
         $data = [
             "model" => "Qwen/Qwen2.5-Coder-32B-Instruct",
@@ -61,13 +61,13 @@ class ChatController extends Controller
     {
         // Hapus teks yang tidak perlu
         $response = preg_replace('/^(Tentu\!|Baik\!|Ya\,)\s*/i', '', $response);
-        
+
         // Potong respons yang terlalu panjang
         $response = strlen($response) > 300 ? substr($response, 0, 300) . '...' : $response;
-        
+
         // Hapus spasi berlebih
         $response = trim(preg_replace('/\s+/', ' ', $response));
-        
+
         return $response;
     }
 }

@@ -20,6 +20,16 @@ class Profile extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+
+    protected $fillable = [
+        'full_name',
+        'address',
+        'phone',
+        'bio',
+        'profile_picture',
+        'user_id'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
